@@ -72,3 +72,31 @@ while (evaluationTarget > 1) {
 }
 
 console.log(`Total log2 step iterations required: ${operationStepsCount}`);
+
+
+// ----------------------------------------------------------------------------
+// TOPIC: THE INFINITE LOOP MEMORY MYTH (INTERVIEW GRADE)
+// ----------------------------------------------------------------------------
+// - The Core Question: Does an infinite loop cause a Stack Overflow?
+// - The Answer: NO. A Stack Overflow only happens when the Call Stack grows 
+//   VERTICALLY (e.g., recursive functions piling up memory frames).
+// - Loop Reality: A loop operates HORIZONTALLY inside the exact same execution 
+//   context frame. The stack frame size stays flat at 1.
+// - The True Danger: Single-Thread Blockage (CPU Resource Starvation). The 
+//   engine consumes 100% of the thread's processing power, freezing the runtime.
+
+// ----------------------------------------------------------------------------
+// THE DANGEROUS WORKBENCH (DO NOT UNCOMMENT IN PRODUCTION)
+// ----------------------------------------------------------------------------
+/*
+let environmentIsHealthy = false;
+
+do {
+    console.log("System Running...");
+    environmentIsHealthy = true; // 🚨 THE TRAP: Flipped to true with no exit strategy!
+    
+    // The Call Stack remains at: [ GEC ]
+    // It never grows, so it never throws a Stack Overflow error.
+    // Result: Terminal floods infinitely, CPU usage spikes to max capacity.
+} while (environmentIsHealthy);
+*/
