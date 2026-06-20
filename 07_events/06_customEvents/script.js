@@ -63,3 +63,29 @@ const mockAddToCartButton = {
 // --- SIMULATING PROJECT WORKFLOW RUNTIME ---
 // Executing the click simulation triggers both receiver components synchronously!
 mockAddToCartButton.triggerFakeHardwareClick();
+
+
+
+const displayBadge = document.getElementById("cart-display");
+const triggerButton = document.getElementById("buy-btn");
+let localCountTracker = 0;
+
+// Receiver Logic -> Listen globally for the custom communication link message string
+window.addEventListener("cartUpdated", function (event) {
+    // Update the badge display with the count data carried inside event.detail
+    displayBadge.textContent = `Basket: ${event.detail.totalItemsCount} items`;
+});
+
+// Sender Logic -> Package state values on hardware tap and shoot into the DOM
+triggerButton.addEventListener("click", function () {
+    localCountTracker += 1;
+
+    const cartPayloadEvent = new CustomEvent("cartUpdated", {
+        detail: {
+            productTitle: "Pro Gaming Mouse",
+            totalItemsCount: localCountTracker
+        }
+    });
+
+    window.dispatchEvent(cartPayloadEvent);
+});
