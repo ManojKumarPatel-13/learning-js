@@ -72,7 +72,7 @@
 
 // function scopeMatrixTest() {
 //     var executionLayer = "Local_Function_Scope"; 
-    
+
 //     if (true) {
 //         let restrictionMode = "Block_Scoped_Beta";
 //         var executionLayer = "Mutated_Inside_Block?";
@@ -280,24 +280,39 @@ const incomingUserPayload = {
 // Create a program using a loop/recursion structure that takes a heavily nested 
 // configuration schema object and flattens all internal properties into a 
 // single-level key-value lookup object.
-/*
-const nestedConfig = {
-    server: {
-        host: "localhost",
-        port: 8080
-    },
-    security: {
-        encryption: {
-            algorithm: "AES-256",
-            saltRounds: 10
-        }
-    }
-};
+
+// const nestedConfig = {
+//     server: {
+//         host: "localhost",
+//         port: 8080
+//     },
+//     security: {
+//         encryption: {
+//             algorithm: "AES-256",
+//             saltRounds: 10
+//         }
+//     }
+// };
 
 // Target Output: { "server.host": "localhost", "server.port": 8080, ... }
 // WRITE FLATTENER SOLUTION BELOW HERE:
-*/
 
+// const answerObj = {}
+
+// for (const k in nestedConfig) {
+//     for (const e in nestedConfig[k]) {
+//         if ((typeof nestedConfig[k][e]) === 'object') {
+//             for (const nE in nestedConfig[k][e]) {
+//                 answerObj[`${k}.${e}.${nE}`] = nestedConfig[k][e][nE]
+//             }
+//         } else {
+//             answerObj[`${k}.${e}`] = nestedConfig[k][e]
+//         }
+//     }
+//     const element = nestedConfig[k];
+// }
+
+// console.log(answerObj)
 
 // QUESTION 13: THE E-COMMERCE DYNAMIC TIERED DISCOUNT ENGINE
 // PROBLEM DESCRIPTION:
@@ -457,7 +472,7 @@ const accessRequestsQueue = [
     { endpoint: "/api/v1/public/view", requestedBy: "anonymous_guest" }
 ];
 
-// Rules: admin gets "FULL"; content_editor and content_author drop into the 
+// Rules: admin gets "FULL"; content_editor and content_author drop into the
 // same shared "WRITE_ACCESS" tier via fall-through; any other role gets "DENIED".
 // WRITE ROUTER STATE ENGINE BELOW HERE:
 */
@@ -531,7 +546,7 @@ const targetTextString = "JAVASCRIPT_ENGINE_V8";
 // Build a strict looping evaluator running from integers 1 to 20. Ensure your 
 // cascade sequence ordering is bulletproof against overlapping divisor traps.
 /*
-// Print "Fizz" if divisible by 3, "Buzz" if divisible by 5, "FizzBuzz" if both, 
+// Print "Fizz" if divisible by 3, "Buzz" if divisible by 5, "FizzBuzz" if both,
 // and print the raw number if it matches none of those conditions.
 // WRITE SEQUENCE TREE BELOW HERE:
 */
