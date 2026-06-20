@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Mastery File 5: Lifecycle & Scroll Playground</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 2rem;
+            min-height: 250vh; /* Pushes layout down to allow smooth scrolling tests */
+        }
+        .dashboard-panel {
+            position: fixed; /* Lock metrics box on view during scrolls */
+            top: 20px;
+            right: 20px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            color: #00bcd4;
+            width: 320px;
+        }
+        .content-box {
+            max-width: 600px;
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #222;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-panel" id="metrics-panel">
+        Waiting for scroll updates...
+    </div>
+
+    <div class="content-box">
+        <h1>Page Timeline Matrix Sandbox</h1>
+        <p>Open your Inspector Terminal Panel (F12) and watch the precise sequencing printouts of <strong>DOMContentLoaded</strong> and <strong>Load</strong> metrics.</p>
+        <p>Scroll down your webpage view layout to test the high-frequency throttled scroll engine tracker output.</p>
+    </div>
+
+    <script src="script.js">
+        const monitorPanel = document.getElementById("metrics-panel");
+        let activeScrollFlag = false;
+
+        window.addEventListener("scroll", function() {
+            if (activeScrollFlag) return;
+            activeScrollFlag = true;
+
+            requestAnimationFrame(() => {
+                monitorPanel.innerHTML = `
+                    <strong>STATUS:</strong> Scrolling Webpage View<br>
+                    <strong>window.scrollY position:</strong> ${window.scrollY}px<br>
+                    <strong>Window View Width:</strong> ${window.innerWidth}px
+                `;
+                activeScrollFlag = false;
+            });
+        });
+    </script>
+</body>
+</html>
