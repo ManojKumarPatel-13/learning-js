@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Mastery File 2: Mouse & Pointer Sandbox</title>
+    <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --accent-cyan: #00bcd4;
+            --accent-purple: #9c27b0;
+            --border-color: #333333;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* THE INTERACTION PAD TARGET ELEMENT */
+        #interaction-pad {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #2a2a2a, #222222);
+            border: 3px dashed #555555;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: crosshair;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+
+        #interaction-pad:hover {
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+        }
+
+        .pad-instruction {
+            font-weight: bold;
+            color: var(--text-muted);
+            pointer-events: none; /* Prevents text from hijacking event target coordinates */
+            user-select: none;
+        }
+
+        .metric-display {
+            background-color: #111111;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            text-align: left;
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Mouse & Pointer Hardware Playground</h1>
+        <p>Open your Developer Console (F12 Key) to track structural timelines, or watch the real-time panel readout directly below.</p>
+        
+        <div id="interaction-pad">
+            <span class="pad-instruction">🖱️ MOVE, CLICK, OR RIGHT-CLICK HERE</span>
+        </div>
+
+        <div class="metric-display" id="screen-readout">
+            Waiting for pointer interaction variables...
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
