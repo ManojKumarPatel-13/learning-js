@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Mastery File 7: Event Loop Visualizer</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .control-panel {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        button:hover { background: #45a049; }
+        .timeline-box {
+            background: #111111;
+            border: 1px solid #222;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 6px;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            min-height: 180px;
+            line-height: 1.5;
+        }
+        .log-sync  { color: #ffffff; } /* White for synchronous */
+        .log-micro { color: #00bcd4; } /* Cyan for Promises */
+        .log-macro { color: #ff9800; } /* Orange for Timers */
+    </style>
+</head>
+<body>
+
+    <div class="control-panel">
+        <h2 style="margin-top:0; color: #00bcd4;">Asynchronous Engine Tracker</h2>
+        <p style="color: #aaa; font-size: 0.9rem;">Click the button below to detonate a timeline race condition. Watch the print order closely!</p>
+        
+        <button id="trigger-race">Run Async Race Condition</button>
+
+        <div class="timeline-box" id="terminal-screen">
+            [System Log]: Ready to trace engine execution tracks...
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
