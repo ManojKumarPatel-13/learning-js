@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Mastery File 3: Keyboard Tracker Sandbox</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            margin: 0;
+        }
+        .panel {
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #333;
+            text-align: center;
+            width: 450px;
+        }
+        .key-box {
+            font-size: 2rem;
+            color: #00bcd4;
+            background: #111;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+            font-family: monospace;
+            border: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel">
+        <h1>Keyboard Input Monitor</h1>
+        <p>Press any key or system combo (like Ctrl + S) on your physical keyboard to dissect the parameters live.</p>
+        
+        <div class="key-box" id="display-code">----</div>
+        
+        <div id="display-metrics" style="text-align: left; font-family: monospace; color: #aaa;">
+            Key Type Data Tracker Active...
+        </div>
+    </div>
+
+    <script>
+        const displayBox = document.getElementById("display-code");
+        const metricsBox = document.getElementById("display-metrics");
+
+        window.addEventListener("keydown", function(e) {
+            if (e.ctrlKey && e.code === "KeyS") {
+                e.preventDefault(); // Stop standard browser actions
+            }
+
+            // Update screen elements smoothly
+            displayBox.textContent = e.code;
+            metricsBox.innerHTML = `
+                <strong>e.key:</strong> "${e.key}"<br>
+                <strong>e.code:</strong> "${e.code}"<br>
+                <strong>e.repeat:</strong> ${e.repeat}<br>
+                <strong>Modifier Held:</strong> ${e.ctrlKey ? 'Ctrl ' : ''}${e.shiftKey ? 'Shift ' : ''}${e.altKey ? 'Alt' : ''}
+            `;
+        });
+    </script>
+</body>
+</html>
