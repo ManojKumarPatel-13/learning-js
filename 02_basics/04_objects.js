@@ -112,3 +112,143 @@ and here as we can see we are destructuring
 // }
 
 // sometimes api gives value in form of array of objects 
+
+// some extra code playing with the 4 property of object
+
+// 1. Initialize a clean, empty configuration container object
+const appConfig = {};
+
+// 2. Define the DEPLOYMENT ENVIRONMENT (Read-Only & Locked)
+Object.defineProperty(appConfig, 'ENV', {
+    value: 'production',
+    writable: false,       // 🔒 Value cannot be overwritten
+    enumerable: true,      // 👁️ Visible in standard configuration loops
+    configurable: false    // 🚫 Cannot be deleted; flags cannot be altered
+});
+
+// 3. Define the SENSITIVE API KEY (Hidden from Loops & Logs)
+Object.defineProperty(appConfig, 'API_SECRET_KEY', {
+    value: 'SECURE_TOKEN_XYZ_9931',
+    writable: false,       // 🔒 Read-Only
+    enumerable: false,     // 🥷 GHOST! Hidden from Object.keys() and loops
+    configurable: false    // 🚫 Un-deletable
+});
+
+// 4. Define a DYNAMIC COUNTER (Writable but Un-deletable)
+Object.defineProperty(appConfig, 'requestCount', {
+    value: 0,
+    writable: true,        // ⚡ ALLOW MUTATION! This value can change dynamically
+    enumerable: true,      // 👁️ Visible
+    configurable: false    // 🚫 Protected against deletion or flag tampering
+});
+
+// ==========================================
+// 🧪 LIVE SYSTEM TESTS (ENGINE ENFORCED)
+// ==========================================
+
+console.log("--- BEFORE TAMPERING ---");
+console.log("Environment:", appConfig.ENV);          // Output: production
+console.log("Request Count:", appConfig.requestCount); // Output: 0
+
+// Test A: Attempting to overwrite a read-only field (ENV)
+appConfig.ENV = 'staging'; // Engine silently blocks this assignment
+console.log("\nAfter mutation attempt on ENV:", appConfig.ENV); // Output: production (unchanged!)
+
+// Test B: Mutating the counter (requestCount)
+appConfig.requestCount += 1;
+console.log("After legitimate counter increment:", appConfig.requestCount); // Output: 1
+
+// Test C: Attempting to delete the counter from memory
+const deleteResult = delete appConfig.requestCount;
+console.log("Did the engine allow deletion?:", deleteResult); // Output: false
+console.log("Request Count after deletion attempt:", appConfig.requestCount); // Output: 1 (still exists!)
+
+// Test D: Visibility Sweeping (The Ghost Test)
+console.log("\n--- CONFIGURATION SWEEPING DETECTION ---");
+console.log("Visible Keys in appConfig:", Object.keys(appConfig));
+// Output: ['ENV', 'requestCount'] 
+// Notice that 'API_SECRET_KEY' is completely absent! It is safe from discovery.
+
+// Yet, if you target it directly, it reads perfectly:
+console.log("Targeted Fetch of Secret Key:", appConfig.API_SECRET_KEY);
+// Output: SECURE_TOKEN_XYZ_9931
+
+
+// writting my self
+const userSession = {
+    username: "alex99",
+    id: "usr_77312"
+};
+
+Object.defineProperty(userSession, 'id', {
+    value: 'usr_77312',
+    writable: false,
+    enumerable: true,
+    configurable: false,
+})
+
+// notes for the same
+
+/**
+ * ============================================================================
+ * MODULE: OBJECT PROPERTY DESCRIPTORS
+ * ============================================================================
+ */
+
+/* * 💡 THE CONCEPT IN SIMPLE TERMS
+ * Under the hood, a JavaScript object property is not just a raw key-value pair. 
+ * Every single property contains a hidden metadata configuration block called a 
+ * "Property Descriptor". Think of these as four internal security switches 
+ * that dictate exactly what operations are permitted on that property.
+ *
+ * ⚙️ THE 4 INTERNAL SWITCHES:
+ * 1. [[value]]: Contains the actual data payload.
+ * 2. [[writable]]: Controls mutation. If false, the property value is read-only.
+ * 3. [[enumerable]]: Controls visibility. If false, the key becomes a "ghost"—
+ * it's hidden from loops, Object.keys(), and object spread operators.
+ * 4. [[configurable]]: Controls administration. If false, the property cannot 
+ * be deleted from memory, and its metadata descriptor flags cannot be altered again.
+ *
+ * 🔬 ENGINE DEFAULT BEHAVIOR NOTE:
+ * - When creating properties via Object Literals ({ key: val }), flags default to TRUE.
+ * - When creating properties via Object.defineProperty(), omitted flags default to FALSE.
+ */
+
+// 💻 LIVE CODE PRODUCTION TEMPLATE
+const userSession = {
+    username: "alex99",
+    id: "usr_77312" // Created via literal, so initially fully unlocked
+};
+
+// Programmatically applying low-level architectural locks
+Object.defineProperty(userSession, 'id', {
+    writable: false,      // 🔒 Value is frozen; cannot be overwritten
+    enumerable: true,     // 👁️ Left visible for object iteration and API parsing
+    configurable: false   // 🚫 Permanent lock. Cannot be deleted or re-configured
+});
+
+
+/* * ⚠️ INTERVIEW / PRODUCTION TRAP #1: THE STRICT MODE TYPEERROR
+ * In sloppy mode, attempting to overwrite a read-only (writable: false) property 
+ * fails silently. In strict mode, it triggers an immediate application crash.
+ */
+(() => {
+    "use strict";
+    try {
+        userSession.id = "hacked_id"; // ❌ Throws TypeError: Cannot assign to read only property
+    } catch (error) {
+        // Runtime exception successfully caught and handled
+    }
+})();
+
+
+/* * ⚠️ INTERVIEW / PRODUCTION TRAP #2: THE CONFIGURABLE ONE-WAY STREET
+ * Setting configurable to false is permanent. You cannot call Object.defineProperty 
+ * a second time to unlock or alter the metadata configuration settings.
+ */
+try {
+    Object.defineProperty(userSession, 'id', { writable: true }); 
+    // ❌ Throws TypeError: Cannot redefine property
+} catch (error) {
+    // Engine blocked the security circumvention attempt
+}
