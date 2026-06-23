@@ -20,8 +20,8 @@ export default class dataNormalizer {
     }
 
     static normalizeNews(rawNews) {
-        const shortDate = rawNews.publishedAt.slice(0, 10);
-        const shortTitle = rawNews.title.slice(0, 15).replaceAll(' ', '_');
+        const shortDate = rawNews.publishedAt ? rawNews.publishedAt.slice(0, 10) : 'unknown-date';
+        const shortTitle = rawNews.title ? rawNews.title.slice(0, 15).replaceAll(' ', '_') : 'untitled';
         const customId = `news_${shortDate}_${shortTitle}`;
         return {
             id: customId,

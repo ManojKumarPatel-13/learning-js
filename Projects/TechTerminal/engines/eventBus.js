@@ -21,9 +21,7 @@ export default class asyncEventBus {
         Promise.resolve().then(() => {
             myCallbacks.forEach(callback => {
                 try {
-                    if (typeof callback !== 'function') {
-                        console.error("not a function")
-                    } else {
+                    if (typeof callback === 'function') {
                         callback(myPayLoad)
                     }
                 } catch (err) {
@@ -33,17 +31,3 @@ export default class asyncEventBus {
         })
     }
 }
-
-const bus = new asyncEventBus();
-
-// Module A: Analytics Tracker
-bus.on("post:clicked", (data) => {
-    console.log(`[ANALYTICS]: Tracked click on item ID: ${data.id}`);
-});
-
-// Main Stream Execution
-console.log("1. User scrolls dashboard...");
-
-bus.emit("post:clicked", { id: "media_card_99", title: "Nebula Space Photo" });
-
-console.log("2. Render next view layout updates...");

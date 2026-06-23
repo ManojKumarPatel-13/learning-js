@@ -32,20 +32,7 @@
             </header>
 
             <div id="mediaFeed" class="feed-container">
-                <div class="media-card card-articles">
-                    <div class="card-tag">📚 ARTICLE</div>
-                    <h3 class="card-title">Mastering the Event Loop: High-Performance Queues</h3>
-                    <div class="card-meta">By dev.to • 2 hours ago</div>
-                    <div class="card-stats">👍 1,240 Likes · 👀 4,890 Views</div>
                 </div>
-
-                <div class="media-card card-memes">
-                    <div class="card-tag">🎭 MEME</div>
-                    <h3 class="card-title">When senior dev says "It works on my machine" right before production cluster crashes</h3>
-                    <div class="card-meta">By imgflip • 4 hours ago</div>
-                    <div class="card-stats">🔥 842 Upvotes</div>
-                </div>
-            </div>
 
             <div id="scrollSentinel" class="sentinel-box">
                 <div class="spinner"></div>
@@ -54,6 +41,13 @@
         </main>
     </div>
 
-    <script type="module" src="engines/eventBus.js"></script>
+    <div id="mediaModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="closeModal" class="close-btn">✕ Close Terminal</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
 </body>
 </html>
