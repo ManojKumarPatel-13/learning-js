@@ -109,3 +109,53 @@ const dashboard = {
 //   Once a function has been hard-bound using '.bind()', you cannot use '.call()' 
 //   or '.apply()' later to change its context to a new object. The original bound 
 //   context is permanent and wins forever.
+
+
+// -------------------------------------------------------------------------
+// 📑 SUB-TOPIC A: "The [[Prototype]] vs. __proto__ Illusion"
+// -------------------------------------------------------------------------
+// * THE TRUTH: They are the exact same internal link, just viewed differently.
+//   - [[Prototype]]: The engine's private, hidden internal slot pointing to a parent.
+//   - __proto__: A public getter/setter helper function sitting on Object.prototype 
+//     that allows scripts to inspect or modify the private [[Prototype]] slot.
+
+const masterParent = { software: "Terminal_V3" };
+const userInstance = { username: "manoj_dev" };
+
+userInstance.__proto__ = masterParent; // Explicit linking via dunder proto
+console.log(userInstance.software);     // ✅ Logs: "Terminal_V3" (via delegation chain)
+
+// -------------------------------------------------------------------------
+// 📑 SUB-TOPIC B: "The 4 Mechanical Steps of the 'new' Keyword"
+// -------------------------------------------------------------------------
+// When you execute: const bot = new BotFactory("Alpha");
+// The JavaScript engine intercepts the execution and runs these 4 sequential steps:
+//
+// 1. Spawns a brand new, clean empty object literal in memory -> {}
+// 2. Automatically links that new object's hidden [[Prototype]] slot to point 
+//    straight to the constructor function's public ".prototype" share-object.
+// 3. Executes the constructor function body line-by-line, forcefully binding 
+//    the 'this' keyword to point directly to the fresh empty object from Step 1.
+// 4. Automatically returns the newly minted, linked object to your variable.
+
+function BotFactory(name) {
+    this.name = name; // step 3 execution target
+}
+BotFactory.prototype.ping = function() { return "pong"; }; // step 2 allocation link
+
+// ---------------- 🚨 CORE ENGINE RULES ENCOUNTERED -------------------------
+//
+// * RULE 1: PROPERTY SHADOWING (Lookup Halting)
+//   Lookups move bottom-to-top. If a property exists directly on an instance,
+//   the engine executes it immediately and stops searching. It never reaches 
+//   the prototype property with the same name.
+//
+// * RULE 2: LIVE DELEGATION POINTERS
+//   Instances do not copy traits at birth. They hold a live pointer link. 
+//   Modifying a prototype at a later timestamp instantly updates the capabilities 
+//   of all historical instances already created in memory.
+//
+// * RULE 3: WRITE IS LOCAL, READ IS CHAINED
+//   Setting an object's property value (object.key = value) ALWAYS updates or 
+//   creates the property locally on that specific object. It never travels up 
+//   the prototype chain to alter ancestor properties.
