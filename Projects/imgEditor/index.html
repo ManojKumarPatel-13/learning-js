@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallel V8 Image Processor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-workspace">
+        <header>
+            <h1>⚡ Parallel V8 Multi-Threaded Image Kernel</h1>
+            <div id="telemetry-panel">
+                Main Thread Status: <span id="fps-counter">Calculating FPS...</span>
+            </div>
+        </header>
+
+        <main>
+            <section id="controls">
+                <div class="control-group">
+                    <label for="image-loader" class="file-label">📂 Upload Image Matrix</label>
+                    <input type="file" id="image-loader" accept="image/*">
+                </div>
+                
+                <div class="control-group">
+                    <label>Filters Engine</label>
+                    <div class="btn-grid">
+                        <button id="btn-grayscale">Grayscale</button>
+                        <button id="btn-invert">Invert Colors</button>
+                        <button id="btn-blur" class="heavy-btn">Box Blur (Heavy CPU)</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="blur-intensity">Blur Intensity Radius</label>
+                    <input type="range" id="blur-intensity" min="1" max="10" value="3">
+                </div>
+
+                <div class="control-group">
+                    <label>Workspace Actions</label>
+                    <div class="btn-grid">
+                        <button id="btn-reset" class="safety-btn">🔄 Reset to Original</button>
+                        <button id="btn-download" class="success-btn">💾 Export Image</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="threads-selector">Core Cluster Allocation</label>
+                    <select id="threads-selector"></select>
+                </div>
+                
+                <div id="performance-metrics">
+                    <h3>Telemetry Readout</h3>
+                    <p>Compute Execution Time: <span id="time-metric">0.00ms</span></p>
+                </div>
+            </section>
+
+            <section id="viewport">
+                <div class="canvas-wrapper">
+                    <canvas id="main-canvas"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
