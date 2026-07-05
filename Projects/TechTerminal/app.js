@@ -89,7 +89,7 @@ const closeModal = document.getElementById("closeModal");
 const modalBody = document.getElementById("modalBody");
 
 feedContainer.addEventListener("click", (e) => {
-    const card = e.target.closest(".media-card");
+    const card = e.targhet.closest(".media-card");
     if (!card) return;
 
     const title = card.querySelector(".card-title").innerText;
