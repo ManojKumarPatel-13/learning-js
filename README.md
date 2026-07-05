@@ -26,6 +26,7 @@ This repository serves as a comprehensive, multi-source learning guide. It combi
 │   ├── short-notes-wrap/
 │   └── [phase-folders-1-to-8]/
 ├── PracticeSheet/
+├── browser-apis-directory
 ├── Projects/
 └── README.md
 ```
